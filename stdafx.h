@@ -7,5 +7,6 @@
 #include <ActivScp.h>
 #include <ShellApi.h>
 
-#include "../SDK/foobar2000.h"
-#include "../helpers/helpers.h"
+#include "../ATLHelpers/ATLHelpers.h"
+
+#include <unordered_map>
