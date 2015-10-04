@@ -68,9 +68,9 @@ void placeAfterCurrent(const pfc::list_base_const_t<metadb_handle_ptr> & p_data,
 			pfc::list_t<metadb_handle_ptr> listContent;
 			bit_array_bittable deleteMask(playlistLength);
 			pm->playlist_get_all_items(playingList,listContent);
-			for (int i=0; i < p_data.get_count(); i++){
+			for (t_size i=0; i < p_data.get_count(); i++){
 				metadb_handle_ptr item = p_data.get_item(i);
-				for (int j=0; j < listContent.get_count(); j++){
+				for (t_size j = 0; j < listContent.get_count(); j++){
 					if (listContent.get_item(j) == item && j != playingIndex){
 						deleteMask.set(j,true);
 					}
@@ -89,14 +89,14 @@ void placeAfterCurrent(const pfc::list_base_const_t<metadb_handle_ptr> & p_data,
 		t_size * toInsert = new t_size[moveCount];
 		unsigned int n = 0;
 		int insertPos = -1;
-		for ( int i=0; i < playlistLength; i++ ){
+		for (t_size i = 0; i < playlistLength; i++){
 			if (!moveMask.get(i)){
 				newOrder[i + delta] = i;
 				if (i == playingIndex){
 					playingIndex = i + delta; // we need this to focus the track later.
 											  // can do this as delta will be <= 0 when we reach playingIndex so i == playingIndex won't be true again
 					insertPos = i + delta + 1;
-					for (int j = 0; j < n; j++){
+					for (t_size j = 0; j < n; j++){
 						newOrder[insertPos++] = toInsert[j];
 					}
 					delta += moveCount;
@@ -111,7 +111,7 @@ void placeAfterCurrent(const pfc::list_base_const_t<metadb_handle_ptr> & p_data,
 		}
 		if(!pm->playlist_reorder_items(playingList,newOrder,playlistLength)){
 			if (cfgEnqueueOnLock){
-				for ( int i=0; i < playlistLength; i++ ){
+				for (t_size i = 0; i < playlistLength; i++){
 					if (moveMask.get(i)){
 						metadb_handle_ptr toQueue;
 						pm->playlist_get_item_handle(toQueue,playingList,i);
@@ -134,7 +134,7 @@ void placeAfterCurrent(const pfc::list_base_const_t<metadb_handle_ptr> & p_data,
 		}
 		if (pm->playlist_insert_items(playingList,playingIndex+1,*insertItems,*selection) == -1){
 			if (cfgEnqueueOnLock){
-				for ( int i=0; i < insertItems->get_count(); i++ ){
+				for (t_size i = 0; i < insertItems->get_count(); i++){
 					pm->queue_add_item(insertItems->get_item(i));
 				}
 			}
@@ -153,7 +153,7 @@ void placeAfterCurrent(const pfc::list_base_const_t<metadb_handle_ptr> & p_data,
 		//static const GUID guid_playbackOrder_repeatTrack = { 0x4bf4b280, 0xbb4, 0x4dd0, { 0x8e, 0x84, 0x37, 0xc3, 0x20, 0x9c, 0x3d, 0xa2 } };
 		GUID activeOrder = pm->playback_order_get_guid(pm->playback_order_get_active());
 		if (activeOrder != guid_playbackOrder_default && activeOrder != guid_playbackOrder_repeatPlaylist){
-			for (int i=0; i < pm->playback_order_get_count(); i++){
+			for (t_size i = 0; i < pm->playback_order_get_count(); i++){
 				if (pm->playback_order_get_guid(i) == guid_playbackOrder_default){
 					pm->playback_order_set_active(i);
 				}
