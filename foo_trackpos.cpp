@@ -3,8 +3,8 @@
 #define VERSION "1.0"
 
 DECLARE_COMPONENT_VERSION( "Track Positioner", VERSION,
-	"This compoment allows you to place tracks in the playlist after the current playing Track\n"
-	"by Chronial (Christian Fersch)\n"
+	"This compoment allows you to place tracks in the playlist after the currently playing track\n"
+	"by Chronial\n"
 	"\n"
 	"Version: " VERSION "\n"
 	"Compiled: " __DATE__ " - " __TIME__ )
@@ -185,10 +185,7 @@ class my_contextmenu : public contextmenu_item_simple {
 		return 1;
 	};
 	virtual void get_item_name(unsigned p_index,pfc::string_base & p_out){
-		p_out = "Place After Current Playing";
-	};
-	virtual void get_item_default_path(unsigned p_index,pfc::string_base & p_out){
-		p_out = "";
+		p_out = "Place after currently playing";
 	};
 	virtual void context_command(unsigned p_index,const pfc::list_base_const_t<metadb_handle_ptr> & p_data,const GUID& p_caller){
 		placeAfterCurrent(p_data,(p_caller == this->caller_playlist));
@@ -201,6 +198,9 @@ class my_contextmenu : public contextmenu_item_simple {
 	virtual bool get_item_description(unsigned p_index,pfc::string_base & p_out){
 		p_out = "Places the selected song in the playlist after the currently playling song";
 		return true;
+	}
+	double get_sort_priority() {
+		return contextmenu_priorities::root_queue - 100;
 	}
 };
 static contextmenu_item_factory_t< my_contextmenu > foo_contextmenu;
