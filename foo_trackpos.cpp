@@ -1,4 +1,4 @@
-#include "foo_trackpos.h"
+#include "stdafx.h"
 
 #define VERSION "1.0"
 

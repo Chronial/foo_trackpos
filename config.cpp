@@ -1,4 +1,4 @@
-#include "foo_trackpos.h"
+#include "stdafx.h"
 #include "resource.h"
 
 extern cfg_bool cfgMovePlaylistContext;
@@ -8,6 +8,7 @@ extern cfg_bool cfgEmptyQueue;
 extern cfg_bool cfgEnqueueOnLock;
 extern cfg_bool cfgSetPlaybackOrder;
 extern cfg_bool cfgNoPlayPlace;
+
 
 struct {
    int id;
