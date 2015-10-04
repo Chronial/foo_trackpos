@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#define VERSION "1.0"
+#define VERSION "1.1"
 
 DECLARE_COMPONENT_VERSION( "Track Positioner", VERSION,
 	"This compoment allows you to place tracks in the playlist after the currently playing track\n"
